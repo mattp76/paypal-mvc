@@ -201,6 +201,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\PayPalViewModel.cs" />
     <Compile Include="Models\PayPal.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -268,6 +269,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\PostToPayPal.cshtml" />
     <Content Include="Views\Home\RedirectFromPaypal.cshtml" />
+    <Content Include="Views\Home\PayPalAjax.cshtml" />
+    <Content Include="Views\Partials\Place.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

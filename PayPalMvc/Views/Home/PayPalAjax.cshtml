@@ -1,0 +1,19 @@
+﻿@model PayPalMvc.Models.PayPalViewModel
+
+@{
+    Layout = null;
+}
+
+
+<form id="frm" action="@ViewBag.actionUrl">
+    @Html.HiddenFor(model => model.cmd)
+    @Html.HiddenFor(model => model.business)
+    @Html.HiddenFor(model => model.no_shipping)
+    @Html.HiddenFor(model => model.@return)
+    @Html.HiddenFor(model => model.notify_url)
+    @Html.HiddenFor(model => model.currency_code)
+    @Html.HiddenFor(model => model.item_name)
+    @Html.HiddenFor(model => model.amount)
+    @Html.HiddenFor(model => model.custom)
+    <input type="submit" name="btnsubmit" value="Proceed to payment" />
+</form>

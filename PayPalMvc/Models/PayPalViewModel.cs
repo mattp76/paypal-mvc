@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PayPalMvc.Models
 {
-    public class PayPal
+    public class PayPalViewModel
     {
         public string cmd { get; set; }
         public string business { get; set; }

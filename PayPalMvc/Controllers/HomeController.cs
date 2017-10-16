@@ -35,7 +35,7 @@ namespace PayPalMvc.Controllers
         public ActionResult PostToPayPal(string item, string amount)
         {
 
-            PayPal paypal = new PayPal();
+            PayPalViewModel paypal = new PayPalViewModel();
             paypal.cmd = "_xclick";
             paypal.business = ConfigurationManager.AppSettings["BusinessAccountKey"];
 
@@ -55,6 +55,32 @@ namespace PayPalMvc.Controllers
             paypal.amount = amount;
 
             return View(paypal);
+        }
+
+        [HttpGet]
+        public PartialViewResult PayPalAjax()
+        {
+            PayPalViewModel paypal = new PayPalViewModel();
+            paypal.cmd = "_xclick";
+            paypal.business = ConfigurationManager.AppSettings["BusinessAccountKey"];
+
+            bool useSandbox = Convert.ToBoolean(ConfigurationManager.AppSettings["UseSandbox"]);
+
+            if (useSandbox)
+                ViewBag.actionUrl = "https://www.sandbox.paypal.com/cgi-bin/webscr";
+            else
+                ViewBag.actionUrl = "https://www.paypal.com/cgi-bin/webscr";
+
+            paypal.cancel_return = ConfigurationManager.AppSettings["CancelUrl"];
+            paypal.@return = ConfigurationManager.AppSettings["ReturnUrl"] + "?item_number=12345";
+            paypal.notify_url = ConfigurationManager.AppSettings["NotifyUrl"];
+            paypal.currency_code = ConfigurationManager.AppSettings["CurrencyCode"];
+
+            paypal.item_name = "Gormless-Traveller";
+            paypal.amount = "5";
+            paypal.custom = "This is my custom variable";
+
+            return PartialView(paypal);
         }
 
 
@@ -119,6 +145,7 @@ namespace PayPalMvc.Controllers
                     result += "<li>Name: " + results["first_name"] + " " + results["last_name"] + "</li>";
                     result += "<li>Item: " + results["item_name"] + "</li>";
                     result += "<li>Amount: " + results["payment_gross"] + "</li>";
+                    result += "<li>Custom: " + results["custom"] + "</li>";
                     result += "<hr>";
                 }
                 else if (line == "FAIL")

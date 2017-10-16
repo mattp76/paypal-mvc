@@ -1,31 +1,73 @@
-﻿<h2>@ViewBag.Message</h2>
+﻿
+<script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")" type="text/javascript"></script>
+
+
+<h2>@ViewBag.Message</h2>
 
 @using (Html.BeginForm("PostToPaypal", "Home"))
 {
     <div>
-     <table>
-         <tr>
-             <td>
-                 Item Name:
-             </td>
-             <td>
-                 <input type="text" name="item" value="book" readonly />
-            </td>
-         </tr>
-         <tr>
-             <td>
-                 Price:
-             <td>
-                 <input type="text" name="amount" value="5" readonly />
-             </td>
-         </tr>
-         <tr>
-             <td>
-             </td>
-             <td>
-                 <input type="submit" name="btnsubmit" value="Pay with Paypal" />
-             </td>
-         </tr>
-     </table>    
+        <table>
+            <tr>
+                <td>
+                    Item Name:
+                </td>
+                <td>
+                    <input type="text" name="item" value="book" readonly />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Price:
+                <td>
+                    <input type="text" name="amount" value="5" readonly />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" name="btnsubmit" value="Pay with Paypal" />
+                </td>
+            </tr>
+        </table>
     </div>
 }
+
+<br />
+<br />
+<br />
+<button id="advert-place">Place</button>
+
+@{Html.RenderPartial("~/views/partials/Place.cshtml");}
+
+<script type="text/javascript" language="javascript">
+    $(this.document).ready(function () {
+        $('#advert-place').click(function () {
+
+            $.ajax({
+                url: "/Home/PayPalAjax",
+                type: "GET"
+            })
+            .done(function (partialViewResult) {
+                $("#place").html(partialViewResult);
+            });
+
+
+
+        //$.ajax({
+        //    url: '/home/PayPalAjax',
+        //    //data: { 'id': selectedId, 'comments': comments },
+        //    type: "post",
+        //    cache: false,
+        //    success: function (savingStatus) {
+        //        $("#hdnOrigComments").val($('#txtComments').val());
+        //        $('#lblCommentsNotification').text(savingStatus);
+        //    },
+        //    error: function (xhr, ajaxOptions, thrownError) {
+        //        $('#lblCommentsNotification').text("Error encountered while saving the comments.");
+        //    }
+        //});
+
+        });
+    });
+</script>
