@@ -1,0 +1,31 @@
+﻿<h2>@ViewBag.Message</h2>
+
+@using (Html.BeginForm("PostToPaypal", "Home"))
+{
+    <div>
+     <table>
+         <tr>
+             <td>
+                 Item Name:
+             </td>
+             <td>
+                 <input type="text" name="item" value="book" readonly />
+            </td>
+         </tr>
+         <tr>
+             <td>
+                 Price:
+             <td>
+                 <input type="text" name="amount" value="5" readonly />
+             </td>
+         </tr>
+         <tr>
+             <td>
+             </td>
+             <td>
+                 <input type="submit" name="btnsubmit" value="Pay with Paypal" />
+             </td>
+         </tr>
+     </table>    
+    </div>
+}

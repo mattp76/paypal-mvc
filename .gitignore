@@ -1,0 +1,7 @@
+bin
+obj
+packages
+*.user
+node_modules
+*.suo
+build
