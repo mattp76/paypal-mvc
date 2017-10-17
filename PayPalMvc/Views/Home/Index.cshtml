@@ -1,4 +1,6 @@
 ﻿
+<div id="preview">
+
 <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")" type="text/javascript"></script>
 
 
@@ -38,6 +40,8 @@
 <br />
 <button id="advert-place">Place</button>
 
+</div>
+
 @{Html.RenderPartial("~/views/partials/Place.cshtml");}
 
 <script type="text/javascript" language="javascript">
@@ -46,28 +50,17 @@
 
             $.ajax({
                 url: "/Home/PayPalAjax",
-                type: "GET"
+                type: "GET",
+                success: function (data) {
+
+                }
             })
             .done(function (partialViewResult) {
-                $("#place").html(partialViewResult);
+                $('#preview').hide(function () {
+                    $("#place").html(partialViewResult);
+                    $("#place").fadeIn();
+                });
             });
-
-
-
-        //$.ajax({
-        //    url: '/home/PayPalAjax',
-        //    //data: { 'id': selectedId, 'comments': comments },
-        //    type: "post",
-        //    cache: false,
-        //    success: function (savingStatus) {
-        //        $("#hdnOrigComments").val($('#txtComments').val());
-        //        $('#lblCommentsNotification').text(savingStatus);
-        //    },
-        //    error: function (xhr, ajaxOptions, thrownError) {
-        //        $('#lblCommentsNotification').text("Error encountered while saving the comments.");
-        //    }
-        //});
-
         });
     });
 </script>

@@ -87,14 +87,14 @@ namespace PayPalMvc.Controllers
         public ActionResult RedirectFromPaypal(string tx)
         {
 
-            var resp = GetPayPalResponse(tx, true);
+            PayPalResponse resp = GetPayPalResponse(tx, true);
             ViewBag.tx = resp;
 
-            return View();
+            return View(resp);
         }
 
 
-        string GetPayPalResponse(string tx, bool useSandbox)
+        public PayPalResponse GetPayPalResponse(string tx, bool useSandbox)
         {
 
             string authToken = "7tBnRytY2SmPuvY6LCoqZ4uqAivCP4zSr_kibkj34-Egd71IZUfvPwWHJB4";
@@ -125,6 +125,8 @@ namespace PayPalMvc.Controllers
             string result = string.Empty;
             streamIn.Close();
 
+            PayPalResponse resp = new PayPalResponse();
+
             Dictionary<string, string> results = new Dictionary<string, string>();
             if (strResponse != "")
             {
@@ -147,6 +149,18 @@ namespace PayPalMvc.Controllers
                     result += "<li>Amount: " + results["payment_gross"] + "</li>";
                     result += "<li>Custom: " + results["custom"] + "</li>";
                     result += "<hr>";
+
+                    resp = new PayPalResponse
+                    {
+                        item_number = results["item_number"],
+                        amount = results["payment_gross"],
+                        currency = results["mc_currency"],
+                        custom = results["custom"],
+                        item_name = results["item_name"],
+                        tx = tx
+                    };
+                    
+
                 }
                 else if (line == "FAIL")
                 {
@@ -161,7 +175,7 @@ namespace PayPalMvc.Controllers
             }
 
 
-            return result;
+            return resp;
         }
     }
 }

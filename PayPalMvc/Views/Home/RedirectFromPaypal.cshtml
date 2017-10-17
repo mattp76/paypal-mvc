@@ -1,19 +1,11 @@
-﻿@model PayPalMvc.Models.PayPalViewModel
+﻿@model PayPalMvc.Models.PayPalResponse
 
-@{
-    Layout = null;
-}
 
-<!DOCTYPE html>
-<html>
-<head>
-   
-</head>
 
-<body>
-  
-    <p>
-        <h4>TX: @ViewBag.tx</h4>
-    </p>
-</body>
-</html>
+<p>
+    <h4>@Model.amount</h4>
+    <h4>@Model.item_name</h4>
+    <h4>@Model.item_number</h4>
+    <h4>@Model.currency</h4>
+</p>
+
